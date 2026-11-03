@@ -1,0 +1,49 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java DAM Practica</title><link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Java DAM"><link rel="apple-touch-icon" href="icon-192.png"><style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#edf4ff;font:16px system-ui;padding:16px}main{max-width:760px;margin:auto}.card{background:#142137;border:1px solid #30425c;border-radius:16px;padding:18px;margin:12px 0}h1{margin:0}p{color:#b7c5d9;line-height:1.5}nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}button{background:#223653;color:#fff;border:1px solid #405674;border-radius:10px;padding:11px;font:inherit;cursor:pointer}button.active,.primary{background:#65e6bd;color:#08251d;font-weight:bold}.option{display:block;width:100%;text-align:left;margin:8px 0}.chosen{outline:2px solid #65e6bd}.good{background:#164334!important}.bad{background:#492532!important}pre,textarea{white-space:pre-wrap;overflow-wrap:anywhere;background:#07101d;color:#d9eaff;border-radius:10px;padding:12px;font:14px monospace;width:100%}textarea{height:170px;border:1px solid #405674}.stats{display:flex;gap:10px}.stats span{flex:1;background:#223653;border-radius:10px;padding:10px;color:#65e6bd}#feedback{padding:10px}small{color:#b7c5d9}
+</style></head><body><main><section class="card"><small>DAM · PROGRAMACIÓN JAVA</small><h1>Java: zona de práctica</h1><p>Practica variables, tipos, casting, operadores, condicionales, bucles y funciones. Elige un tema y responde.</p><div class="stats"><span>Respondidas <b id="total">0</b></span><span>Aciertos <b id="hits">0</b></span><span>Ratio <b id="pct">0%</b></span></div></section><nav id="topics"></nav><section class="card"><small id="tag"></small><h3 id="question"></h3><pre id="code"></pre><div id="options"></div><div id="feedback"></div><button id="hint">Pista</button> <button class="primary" id="check">Comprobar</button> <button id="next">Siguiente →</button></section><section class="card"><h3>Editor para practicar</h3><p>Escribe tu solución Java. La aplicación no ejecuta Java, pero puedes practicar la sintaxis.</p><textarea id="editor" spellcheck="false" placeholder="public class Practica { ... }"></textarea><button id="example">Insertar plantilla Java</button><button id="clear">Limpiar</button></section><small>Aplicación offline; no envía datos a ningún servidor.</small></main><script>
+const data={
+"Variables y tipos":[
+["¿Cuál declaración es válida?","",["int 2nombre=4;","String nombreCompleto=\"Ana\";","double if=2.0;","char letra=\"A\";"],1,"Los nombres no empiezan por número ni pueden ser reservados. char utiliza comillas simples."],
+["¿Qué tipo guarda true o false?","",["int","char","boolean","String"],2,"boolean almacena true o false."],
+["¿Qué imprime?","int edad=30; edad=edad+2; System.out.println(edad);",["30","2","32","Error"],2,"30 + 2 resulta 32."],
+["¿Qué palabra declara una constante?","",["static","final","void","const"],1,"En Java se utiliza final."]
+],
+"Conversiones / casting":[
+["(int) 1.75 da…","int x=(int)1.75;",["2","1.75","1","Error"],2,"El casting a int trunca la parte decimal, no redondea."],
+["¿Qué conversión es implícita?","int edad=30;",["int a double","double a int","String a int","double a char"],0,"int se asigna a double automáticamente (30.0)."],
+["¿Qué imprime?","float peso=60.5f; int x=(int)peso; System.out.println(x);",["60.5","61","60","Error"],2,"La parte decimal se descarta."]
+],
+"Operadores":[
+["¿Qué calcula %?","",["Porcentaje","Resto de división","División decimal","Multiplicación"],1,"% es el módulo, el resto de dividir."],
+["¿Cuánto es 17 % 5?","",["3","5","2","0"],2,"17 = 5×3 + 2, el resto es 2."],
+["¿Qué resulta de 7 / 3 con int?","System.out.println(7/3);",["2.33","2","3","Error"],1,"División entera elimina decimales."],
+["n=4; n+=77; n-=3; n*=2; ¿valor?","int n=4;",["156","78","162","158"],0,"4+77=81; 81−3=78; 78×2=156."]
+],
+"Condicionales":[
+["Si edad=16, ¿qué muestra?","if(edad>=18) print(\"Acceso\"); else print(\"Denegado\");",["Acceso","Denegado","Nada","Error"],1,"16 no es mayor ni igual a 18, entra en else."],
+["¿Qué operador compara igualdad?","",["=","==","!=","<="],1,"= asigna; == compara."],
+["¿Qué estructura selecciona entre casos?","",["while","switch","do-while","return"],1,"switch permite elegir entre casos."],
+["¿Cómo detectas número par?","int numero=8;",["numero/2==0","numero%2==0","numero%2==1","numero==2"],1,"Un par deja resto cero al dividir por 2."]
+],
+"Bucles":[
+["¿Cuántas iteraciones?","for(int i=1;i<=5;i++) { ... }",["4","5","6","Infinitas"],1,"i va de 1 hasta 5 inclusive."],
+["¿Qué bucle ejecuta el cuerpo al menos una vez?","",["for","while","do-while","Ninguno"],2,"do-while evalúa condición al final."],
+["¿Qué falta para que termine?","int i=1; while(i<=5){System.out.println(i);}",["else","i++","return","switch"],1,"Sin incrementar i, la condición nunca cambia."],
+["¿Qué suma calcula?","int s=0; for(int i=1;i<=3;i++){s+=i;}",["3","5","6","7"],2,"1+2+3 = 6."]
+],
+"Funciones":[
+["¿Qué indica int en la cabecera?","public static int sumar(int a,int b){return a+b;}",["No devuelve nada","Devuelve un entero","Nombre de método","Parámetro"],1,"El tipo previo al nombre indica retorno."],
+["¿Qué palabra devuelve resultado?","",["break","return","void","static"],1,"return devuelve valor y termina el método."],
+["Método que muestra saludo sin retorno:","",["public static int saludo()","public static void saludo(String nombre)","public void return saludo","static String void saludo"],1,"void señala que no devuelve valor."],
+["¿Qué es sobrecarga?","",["Método idéntico duplicado","Mismo nombre, parámetros distintos","Método recursivo","Sin return"],1,"Mismo nombre pero lista de parámetros distinta."]
+]};
+let topic=Object.keys(data)[0],i=0,choice=null,done=false,total=0,hits=0;
+const nav=document.querySelector("#topics");
+Object.keys(data).forEach(t=>{let b=document.createElement("button");b.textContent=t;b.onclick=()=>{topic=t;i=0;draw()};nav.append(b)});
+function draw(){choice=null;done=false;document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.textContent===topic));let q=data[topic][i%data[topic].length];document.querySelector("#tag").textContent=topic+" · pregunta "+(i+1);document.querySelector("#question").textContent=q[0];document.querySelector("#code").textContent=q[1]||"// Elige la respuesta correcta";document.querySelector("#feedback").textContent="";let opts=document.querySelector("#options");opts.innerHTML="";q[2].forEach((o,n)=>{let b=document.createElement("button");b.className="option";b.textContent=""+String.fromCharCode(65+n)+") "+o;b.onclick=()=>{if(done)return;choice=n;document.querySelectorAll(".option").forEach(x=>x.classList.remove("chosen"));b.classList.add("chosen")};opts.append(b)})}
+document.querySelector("#check").onclick=()=>{if(done)return;if(choice===null){document.querySelector("#feedback").textContent="Selecciona una respuesta.";return}done=true;let q=data[topic][i%data[topic].length],ok=choice===q[3];total++;if(ok)hits++;document.querySelector("#total").textContent=total;document.querySelector("#hits").textContent=hits;document.querySelector("#pct").textContent=Math.round(hits/total*100)+"%";document.querySelectorAll(".option").forEach((b,n)=>{if(n===q[3])b.classList.add("good");if(n===choice&&!ok)b.classList.add("bad")});document.querySelector("#feedback").textContent=(ok?"Correcto. ":"Incorrecto. ")+q[4]};
+document.querySelector("#next").onclick=()=>{i++;draw()};document.querySelector("#hint").onclick=()=>document.querySelector("#feedback").textContent="Pista: evalúa la sintaxis y los valores paso a paso.";
+document.querySelector("#example").onclick=()=>document.querySelector("#editor").value="public class Practica {\n    public static void main(String[] args) {\n        // Escribe aquí tu solución\n    }\n}";
+document.querySelector("#clear").onclick=()=>document.querySelector("#editor").value="";
+draw();
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script></body></html>
